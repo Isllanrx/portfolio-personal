@@ -95,10 +95,10 @@ function ProjectModal({ project, open, onClose, t }: { project: Project | null; 
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-xl p-8 rounded-3xl">
+      <DialogContent className="max-w-xl p-8 rounded-3xl overflow-hidden">
         <DialogHeader>
-          <DialogTitle className="text-3xl font-bold mb-2">{projectTranslation.title}</DialogTitle>
-          <DialogDescription className="text-lg leading-relaxed">{projectTranslation.shortDescription}</DialogDescription>
+          <DialogTitle className="text-3xl font-bold mb-2 break-words">{projectTranslation.title}</DialogTitle>
+          <DialogDescription className="text-lg leading-relaxed break-words">{projectTranslation.shortDescription}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6 mt-6">

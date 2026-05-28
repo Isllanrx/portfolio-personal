@@ -23,6 +23,7 @@ export function ContactSection({ dict: t }: { dict: any }) {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [messageLength, setMessageLength] = useState(0)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -108,6 +109,8 @@ ${data.message}`
                       autoComplete="name"
                       placeholder={t.contact.form.namePlaceholder}
                       required
+                      maxLength={100}
+                      minLength={2}
                       className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11"
                     />
                   </div>
@@ -122,6 +125,7 @@ ${data.message}`
                       autoComplete="email"
                       placeholder={t.contact.form.emailPlaceholder}
                       required
+                      maxLength={100}
                       className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11"
                     />
                   </div>
@@ -137,6 +141,7 @@ ${data.message}`
                       name="phone"
                       autoComplete="tel"
                       placeholder={t.contact.form.phonePlaceholder}
+                      maxLength={20}
                       className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11"
                     />
                   </div>
@@ -158,16 +163,24 @@ ${data.message}`
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
-                  <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
-                    {t.contact.form.message}
-                  </label>
+                <div className="space-y-1.5 relative">
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                      {t.contact.form.message}
+                    </label>
+                    <span className={`text-[9px] font-mono ${messageLength > 950 ? 'text-destructive' : 'text-muted-foreground'}`}>
+                      {messageLength}/1000
+                    </span>
+                  </div>
                   <Textarea
                     id="contact-message"
                     name="message"
                     autoComplete="off"
                     placeholder={t.contact.form.messagePlaceholder}
                     required
+                    maxLength={1000}
+                    minLength={10}
+                    onChange={(e) => setMessageLength(e.target.value.length)}
                     className="min-h-[120px] bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors resize-none"
                   />
                 </div>
@@ -220,11 +233,11 @@ ${data.message}`
                       <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors border border-border/50">
                         <link.icon className="w-5 h-5" />
                       </div>
-                      <div>
-                        <div className="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground truncate">
                           {link.label}
                         </div>
-                        <div className="text-sm font-medium">
+                        <div className="text-sm font-medium break-all">
                           {link.value}
                         </div>
                       </div>
