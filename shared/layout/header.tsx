@@ -86,7 +86,7 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
               priority
             />
           </div>
-          <span className="font-bold text-lg tracking-tighter hidden sm:block">
+          <span className="font-bold text-lg tracking-tighter">
             isllan<span className="text-muted-foreground">.dev</span>
           </span>
         </Link>
