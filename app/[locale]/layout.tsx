@@ -60,12 +60,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       apple: '/logo.webp',
     },
     alternates: {
-      canonical: locale === 'pt' ? baseUrl : `${baseUrl}/${locale}`,
+      canonical: `${baseUrl}/${locale}`,
       languages: {
-        'pt-BR': baseUrl,
+        'pt-BR': `${baseUrl}/pt`,
         'en-US': `${baseUrl}/en`,
         'es-ES': `${baseUrl}/es`,
-        'x-default': baseUrl,
+        'x-default': `${baseUrl}/pt`,
       },
     },
     openGraph: {
