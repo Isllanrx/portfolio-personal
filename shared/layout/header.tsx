@@ -33,7 +33,7 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
   const setLocale = (newLocale: Locale) => {
     const segments = pathname.split('/');
     segments[1] = newLocale;
-    router.push(segments.join('/'));
+    router.push(segments.join('/'), { scroll: false });
   };
 
 
