@@ -26,7 +26,11 @@ const jetbrainsMono = JetBrains_Mono({
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const dict = await getDictionary(locale as any);
-  const baseUrl = 'https://isllan.dev';
+  
+  // Use localhost in development to pass Lighthouse audits locally, otherwise production domain
+  const baseUrl = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:3000' 
+    : 'https://isllan.dev';
   
   return {
     metadataBase: new URL(baseUrl),
@@ -60,18 +64,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       apple: '/logo.webp',
     },
     alternates: {
-      canonical: locale === 'pt' ? baseUrl : `${baseUrl}/${locale}`,
+      canonical: `/${locale}`,
       languages: {
-        'pt-BR': baseUrl,
-        'en-US': `${baseUrl}/en`,
-        'es-ES': `${baseUrl}/es`,
-        'x-default': baseUrl,
+        'pt-BR': `/pt`,
+        'en-US': `/en`,
+        'es-ES': `/es`,
+        'x-default': `/pt`,
       },
     },
     openGraph: {
       type: 'profile',
       locale: locale,
-      url: locale === 'pt' ? baseUrl : `${baseUrl}/${locale}`,
+      url: `/${locale}`,
       title: `Isllan Toso | ${dict.hero.titleHighlight}`,
       description: dict.trust.description,
       siteName: 'Isllan Toso Portfolio',
