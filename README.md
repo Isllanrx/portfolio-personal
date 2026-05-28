@@ -4,6 +4,41 @@ Modern, high-performance personal portfolio built with Next.js 16, React 19, and
 
 ---
 
+## Architecture Overview
+
+This project follows a feature-based architecture (Vertical Slicing), separating concerns into modular features and a shared infrastructure layer.
+
+```mermaid
+graph TD
+    App[app/ - Routing & Layouts] --> Features[features/ - Domain Sections]
+    App --> Shared[shared/ - Core Infrastructure]
+    
+    subgraph Features
+        Hero[hero]
+        Projects[projects]
+        Experience[experience]
+        Trust[trust]
+    end
+    
+    subgraph Shared
+        UI[shared/ui - Atomic Components]
+        Lib[shared/lib - Utils & i18n]
+        Hooks[shared/hooks - Logic]
+        Layout[shared/layout - Global UI]
+    end
+    
+    subgraph Localization
+        Dict[shared/lib/i18n/translations.ts]
+        Loader[i18n/get-dictionary.ts]
+    end
+
+    Features --> Shared
+    App --> Loader
+    Loader --> Dict
+```
+
+---
+
 ## Tech Stack
 
 - Framework: [Next.js 16](https://nextjs.org/) (App Router)
