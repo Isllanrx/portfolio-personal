@@ -26,42 +26,37 @@ export function TrustSection({ dict: t }: { dict: any }) {
   ]
 
   return (
-    <section id="about" ref={ref} className="py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
+    <section id="about" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <m.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <header className="mb-16">
-            <span className="text-primary font-mono text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
+          <header className="mb-8 lg:mb-12">
+            <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
               {t.trust.sectionLabel}
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+            <h2 className="text-3xl lg:text-5xl font-bold tracking-tight">
               {t.trust.title}
             </h2>
           </header>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {t.trust.description}
-              </p>
-            </div>
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
+              {t.trust.description}
+            </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6" aria-label="Métricas profissionais">
-              {metrics.map((metric, index) => (
-                <m.div
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4" aria-label="Métricas profissionais">
+              {metrics.map((metric) => (
+                <div
                   key={metric.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="p-6 rounded-2xl bg-card border border-border flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow"
+                  className="p-4 lg:p-6 rounded-2xl bg-card border border-border flex flex-col items-center text-center shadow-sm"
                 >
-                  <metric.icon className="w-8 h-8 text-primary mb-4" aria-hidden="true" />
-                  <div className="text-3xl font-bold mb-1 tracking-tighter">{metric.value}</div>
-                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{metric.label}</div>
-                </m.div>
+                  <metric.icon className="w-6 h-6 lg:w-8 lg:h-8 text-primary mb-3 lg:mb-4" aria-hidden="true" />
+                  <div className="text-2xl lg:text-3xl font-bold mb-1 tracking-tighter">{metric.value}</div>
+                  <div className="text-[9px] lg:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{metric.label}</div>
+                </div>
               ))}
             </div>
           </div>

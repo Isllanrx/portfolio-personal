@@ -87,35 +87,39 @@ export function CertificationsSection({ dict: t }: { dict: any }) {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="py-24 px-6 md:px-12 lg:px-24 border-t border-border overflow-hidden relative">
+    <section ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border overflow-hidden relative">
       {/* Background decoration */}
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
       
       <div className="max-w-6xl mx-auto">
         <m.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-8 lg:mb-16"
         >
-          <span className="text-primary font-mono text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
+          <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
             {t.certifications.sectionLabel}
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-4 tracking-tight">
             {t.certifications.viewAll}
           </h2>
-          <div className="w-20 h-1.5 bg-primary rounded-full" />
+          <div className="w-16 lg:w-20 h-1 lg:h-1.5 bg-primary rounded-full" />
         </m.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {t.certifications.items.map((cert: Cert, index: number) => (
-            <CertificationCard 
+            <div 
               key={cert.title} 
-              cert={cert} 
-              index={index} 
-              isInView={isInView} 
-              t={t}
-            />
+              className={index >= 3 ? 'hidden md:block' : 'block'}
+            >
+              <CertificationCard 
+                cert={cert} 
+                index={index} 
+                isInView={isInView} 
+                t={t}
+              />
+            </div>
           ))}
         </div>
       </div>

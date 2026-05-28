@@ -1,6 +1,6 @@
 'use client'
 import { m, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useMemo } from 'react'
 import { ExternalLink, Github, ChevronRight } from 'lucide-react'
 import {
   Dialog,
@@ -8,8 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@/components/ui/dialog'
-import { Badge } from '@/components/ui/badge'
+} from '@/shared/ui/dialog'
+import { Badge } from '@/shared/ui/badge'
 import Script from 'next/script'
 
 interface Project {
@@ -47,57 +47,43 @@ const projectsData: Project[] = [
 function ProjectCard({ project, onClick, t }: { project: Project; onClick: () => void; t: any }) {
   const projectTranslation = t.projects.items[project.id as keyof typeof t.projects.items]
   
-  // JSON-LD CreativeWork for individual projects
-  const projectSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareSourceCode",
-    "name": projectTranslation.title,
-    "description": projectTranslation.shortDescription,
-    "programmingLanguage": projectTranslation.techStack,
-    "codeRepository": project.github,
-    "author": {
-      "@type": "Person",
-      "name": "Isllan Toso Pereira"
-    }
-  };
-
   return (
     <m.article
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       whileHover={{ y: -4 }}
-      className="group cursor-pointer"
+      className="group cursor-pointer p-8 rounded-3xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all h-full flex flex-col shadow-sm hover:shadow-xl hover:shadow-primary/5 relative overflow-hidden"
       onClick={onClick}
     >
-      <Script
-        id={`project-ld-${project.id}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
-      />
-      <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all h-full flex flex-col shadow-sm hover:shadow-md">
-        <header className="flex items-start justify-between mb-4">
-          <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
-            {projectTranslation.title}
-          </h3>
-          <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
-        </header>
-        
-        <p className="text-muted-foreground text-lg mb-6 flex-grow leading-relaxed">
-          {projectTranslation.shortDescription}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-6" aria-label="Tecnologias utilizadas">
-          {projectTranslation.techStack.split(', ').map((tech: string) => (
-            <Badge key={tech} variant="secondary" className="px-3 py-1 font-medium">
-              {tech}
-            </Badge>
-          ))}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />
+      
+      <header className="flex items-start justify-between mb-4 relative z-10">
+        <h3 className="text-2xl font-bold group-hover:text-primary transition-colors bg-clip-text">
+          {projectTranslation.title}
+        </h3>
+        <div className="p-2 rounded-full bg-secondary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+          <ChevronRight className="w-5 h-5" aria-hidden="true" />
         </div>
+      </header>
+      
+      <p className="text-muted-foreground text-lg mb-6 flex-grow leading-relaxed relative z-10">
+        {projectTranslation.shortDescription}
+      </p>
 
-        {!project.demo && !project.github && (
-          <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 px-4 py-1">
-            {t.projects.comingSoon}
+      <div className="flex flex-wrap gap-2 mb-6 relative z-10" aria-label="Tecnologias utilizadas">
+        {projectTranslation.techStack.split(', ').map((tech: string) => (
+          <Badge key={tech} variant="secondary" className="px-3 py-1 font-medium bg-secondary/50 border-none">
+            {tech}
           </Badge>
-        )}
+        ))}
       </div>
+
+      {!project.demo && !project.github && (
+        <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 px-4 py-1 relative z-10">
+          {t.projects.comingSoon}
+        </Badge>
+      )}
     </m.article>
   )
 }
@@ -160,39 +146,33 @@ export function ProjectsSection({ dict: t }: { dict: any }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   return (
-    <section id="projects" ref={ref} className="py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
+    <section id="projects" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <m.header
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-8 lg:mb-12"
         >
-          <span className="text-primary font-mono text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
+          <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
             {t.projects.sectionLabel}
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-4 tracking-tight">
             {t.projects.title}
           </h2>
-          <p className="text-muted-foreground text-xl max-w-2xl leading-relaxed">
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed">
             {t.projects.description}
           </p>
         </m.header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projectsData.map((project, index) => (
-            <m.div
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          {projectsData.map((project) => (
+            <ProjectCard
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <ProjectCard
-                project={project}
-                onClick={() => setSelectedProject(project)}
-                t={t}
-              />
-            </m.div>
+              project={project}
+              onClick={() => setSelectedProject(project)}
+              t={t}
+            />
           ))}
         </div>
 

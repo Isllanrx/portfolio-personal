@@ -60,35 +60,35 @@ ${data.message}`
   }
 
   return (
-    <section id="contact" ref={ref} className="py-24 px-6 md:px-12 lg:px-24 border-t border-border">
+    <section id="contact" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border">
       <div className="max-w-6xl mx-auto">
         <m.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-8 lg:mb-16"
         >
-          <span className="text-primary font-mono text-sm tracking-wider mb-4 block uppercase">
+          <span className="text-primary font-mono text-xs lg:text-sm tracking-wider mb-4 block uppercase">
             {t.contact.sectionLabel}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             {t.contact.title}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed">
             {t.contact.description}
           </p>
         </m.div>
 
-        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start">
+        <div className="grid lg:grid-cols-[1fr_400px] gap-8 lg:gap-12 items-start">
           <m.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             {submitted ? (
-              <div className="flex flex-col items-center justify-center text-center p-12 rounded-3xl bg-secondary/10 border border-border">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                  <CheckCircle2 className="w-8 h-8 text-primary" />
+              <div className="flex flex-col items-center justify-center text-center p-8 lg:p-12 rounded-3xl bg-secondary/10 border border-border">
+                <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <CheckCircle2 className="w-6 h-6 lg:w-8 lg:h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{t.contact.form.successTitle}</h3>
                 <p className="text-muted-foreground">
@@ -193,11 +193,11 @@ ${data.message}`
             )}
           </m.div>
 
-          <aside className="space-y-6">
+          <aside className="space-y-4 lg:space-y-6">
             <m.div
               initial={{ opacity: 0, x: 20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="p-6 rounded-2xl bg-secondary/20 border border-border space-y-6"
             >
               <div className="space-y-4">
