@@ -26,7 +26,7 @@ export function Footer({ dict: t }: { dict: any }) {
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors p-1.5"
-              aria-label="GitHub"
+              aria-label="GitHub de Isllan Toso"
             >
               <Github className="w-4 h-4" />
             </a>
@@ -35,20 +35,20 @@ export function Footer({ dict: t }: { dict: any }) {
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors p-1.5"
-              aria-label="LinkedIn"
+              aria-label="LinkedIn de Isllan Toso"
             >
               <Linkedin className="w-4 h-4" />
             </a>
             <a
               href="mailto:isllan.toso79@gmail.com"
               className="text-muted-foreground hover:text-primary transition-colors p-1.5"
-              aria-label="Email"
+              aria-label="Enviar e-mail para Isllan Toso"
             >
               <Mail className="w-4 h-4" />
             </a>
           </div>
 
-          <div className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60">
+          <div className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">
             © {currentYear} {t.footer.rights}
           </div>
         </div>
