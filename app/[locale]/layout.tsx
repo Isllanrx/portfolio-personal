@@ -8,10 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   
   return {
     metadataBase: new URL(baseUrl),
-    title: {
-      default: `Isllan Toso | ${dict.hero.role}`,
-      template: `%s | Isllan Toso`
-    },
+    title: 'Isllan Toso | Portfólio',
     description: dict.trust.description,
     keywords: [
       'Isllan Toso Pereira',
