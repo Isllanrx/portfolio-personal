@@ -36,6 +36,13 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
     router.push(segments.join('/'), { scroll: false });
   };
 
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Update URL without jumping
+    window.history.pushState({}, '', `/${locale}`);
+  };
+
 
   useEffect(() => {
     setMounted(true)
@@ -75,7 +82,7 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-4 flex items-center justify-between">
-        <Link href="#" className="flex items-center gap-2 group">
+        <Link href="#" onClick={scrollToTop} className="flex items-center gap-2 group">
           <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
             <Image
               src="/logo.webp"
