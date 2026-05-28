@@ -88,7 +88,7 @@ export function HeroSection({ dict: t }: { dict: any }) {
         >
           <div className="relative w-[400px] h-[500px] rounded-[2rem] overflow-hidden border border-border bg-card shadow-2xl group">
             <Image
-              src="/perfil.png"
+              src="/perfil.webp"
               alt="Isllan Toso Pereira - Desenvolvedor Backend Python"
               fill
               sizes="400px"

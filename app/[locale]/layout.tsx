@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       siteName: 'Isllan Toso Portfolio',
       images: [
         {
-          url: '/perfil.png',
+          url: '/perfil.webp',
           width: 1200,
           height: 630,
           alt: 'Isllan Toso Pereira - Backend Developer',
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: `Isllan Toso | ${dict.hero.role}`,
       description: dict.trust.description,
       creator: '@Isllanrx',
-      images: ['/perfil.png'],
+      images: ['/perfil.webp'],
     },
     robots: {
       index: true,

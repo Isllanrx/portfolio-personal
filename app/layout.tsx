@@ -4,8 +4,8 @@ import { ThemeProvider } from '@/shared/theme-provider'
 import { MotionProvider } from '@/shared/ui/motion-provider'
 import { CustomCursor } from '@/shared/ui/custom-cursor'
 import './globals.css'
-import { headers } from 'next/headers'
 import Script from 'next/script'
+import { Suspense } from 'react'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -24,9 +24,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const locale = headersList.get('x-locale') || 'pt';
-
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -36,7 +33,7 @@ export default async function RootLayout({
         "name": "Isllan Toso Pereira",
         "url": "https://isllan.dev",
         "jobTitle": "Backend Developer",
-        "image": "https://isllan.dev/perfil.png",
+        "image": "https://isllan.dev/perfil.webp",
         "worksFor": {
           "@type": "Organization",
           "name": "Globalsys"
@@ -73,7 +70,7 @@ export default async function RootLayout({
 
   return (
     <html 
-      lang={locale} 
+      lang="pt" 
       className={`${inter.variable} ${jetbrainsMono.variable} bg-background`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
@@ -105,18 +102,20 @@ export default async function RootLayout({
         />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-          enableColorScheme={false}
-        >
-          <MotionProvider>
-            <CustomCursor />
-            {children}
-          </MotionProvider>
-        </ThemeProvider>
+        <Suspense>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+            enableColorScheme={false}
+          >
+            <MotionProvider>
+              <CustomCursor />
+              {children}
+            </MotionProvider>
+          </ThemeProvider>
+        </Suspense>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
