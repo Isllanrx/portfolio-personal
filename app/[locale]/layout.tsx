@@ -1,5 +1,27 @@
 import type { Metadata } from 'next'
+import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { ThemeProvider } from '@/shared/theme-provider'
+import { MotionProvider } from '@/shared/ui/motion-provider'
+import { CustomCursor } from '@/shared/ui/custom-cursor'
 import { getDictionary } from '@/i18n/get-dictionary'
+import { Suspense } from 'react'
+import { preload } from 'react-dom'
+import '../globals.css'
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap',
+  preload: true,
+})
+
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+  preload: true,
+})
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -8,7 +30,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   
   return {
     metadataBase: new URL(baseUrl),
-    title: 'Isllan Toso | Portfólio',
+    title: {
+      default: 'Isllan Toso | Backend Developer',
+      template: '%s | Isllan Toso'
+    },
     description: dict.trust.description,
     keywords: [
       'Isllan Toso Pereira',
@@ -81,10 +106,70 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function LocaleLayout({
+export async function generateStaticParams() {
+  return [{ locale: 'pt' }, { locale: 'en' }, { locale: 'es' }];
+}
+
+export default async function LocaleLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  return <>{children}</>
+  const { locale } = await params;
+  
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://isllan.dev/#person",
+        "name": "Isllan Toso Pereira",
+        "url": "https://isllan.dev",
+        "jobTitle": "Backend Developer",
+        "image": "https://isllan.dev/perfil.webp",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Globalsys"
+        },
+        "sameAs": [
+          "https://github.com/Isllanrx",
+          "https://linkedin.com/in/isllantoso"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://isllan.dev/#website",
+        "url": "https://isllan.dev",
+        "name": "Isllan Toso Portfolio",
+        "publisher": {
+          "@id": "https://isllan.dev/#person"
+        },
+        "inLanguage": ["pt-BR", "en-US", "es-ES"]
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://isllan.dev/#webpage",
+        "url": "https://isllan.dev",
+        "name": "Isllan Toso | Backend Developer",
+        "isPartOf": {
+          "@id": "https://isllan.dev/#website"
+        },
+        "about": {
+          "@id": "https://isllan.dev/#person"
+        }
+      }
+    ]
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      {children}
+    </>
+  )
 }

@@ -1,73 +1,36 @@
+import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/shared/theme-provider'
 import { MotionProvider } from '@/shared/ui/motion-provider'
 import { CustomCursor } from '@/shared/ui/custom-cursor'
-import './globals.css'
 import Script from 'next/script'
 import { Suspense } from 'react'
+import './globals.css'
 
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
 })
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"],
   variable: '--font-jetbrains-mono',
   display: 'swap',
+  preload: true,
 })
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Person",
-        "@id": "https://isllan.dev/#person",
-        "name": "Isllan Toso Pereira",
-        "url": "https://isllan.dev",
-        "jobTitle": "Backend Developer",
-        "image": "https://isllan.dev/perfil.webp",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Globalsys"
-        },
-        "sameAs": [
-          "https://github.com/Isllanrx",
-          "https://linkedin.com/in/isllantoso"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://isllan.dev/#website",
-        "url": "https://isllan.dev",
-        "name": "Isllan Toso Portfolio",
-        "publisher": {
-          "@id": "https://isllan.dev/#person"
-        },
-        "inLanguage": ["pt-BR", "en-US", "es-ES"]
-      },
-      {
-        "@type": "ProfilePage",
-        "@id": "https://isllan.dev/#webpage",
-        "url": "https://isllan.dev",
-        "name": "Isllan Toso | Backend Developer",
-        "isPartOf": {
-          "@id": "https://isllan.dev/#website"
-        },
-        "about": {
-          "@id": "https://isllan.dev/#person"
-        }
-      }
-    ]
-  };
+export const metadata: Metadata = {
+  metadataBase: new URL('https://isllan.dev'),
+}
 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html 
       lang="pt" 
@@ -75,48 +38,27 @@ export default async function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme') || 'dark';
-                  var root = document.documentElement;
-                  if (theme === 'system') {
-                    var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    root.classList.add(dark ? 'dark' : 'light');
-                  } else {
-                    root.classList.add(theme);
-                  }
-                } catch (e) {}
-              })()
-            `,
-          }}
-        />
+      <body className="font-sans antialiased selection:bg-primary/30 selection:text-foreground" suppressHydrationWarning>
         <Script
-          id="schema-graph"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-          strategy="afterInteractive"
+          id="theme-strategy"
+          src="/scripts/theme-init.js"
+          strategy="beforeInteractive"
         />
-      </head>
-      <body className="font-sans antialiased" suppressHydrationWarning>
         <Suspense>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
+            enableSystem={false}
             disableTransitionOnChange
             enableColorScheme={false}
           >
             <MotionProvider>
               <CustomCursor />
               {children}
+              {process.env.NODE_ENV === 'production' && <Analytics />}
             </MotionProvider>
           </ThemeProvider>
         </Suspense>
-        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )
