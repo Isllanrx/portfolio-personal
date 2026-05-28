@@ -4,6 +4,15 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   trailingSlash: false,
+  experimental: {
+    reactCompiler: true,
+    ppr: 'incremental',
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 }
 
 export default nextConfig
