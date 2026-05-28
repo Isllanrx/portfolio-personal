@@ -4,10 +4,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   trailingSlash: false,
-  experimental: {
-    reactCompiler: true,
-    ppr: 'incremental',
-  },
+  cacheComponents: true,
   logging: {
     fetches: {
       fullUrl: true,
