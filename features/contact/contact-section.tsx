@@ -80,7 +80,7 @@ ${data.message}`
           </p>
         </m.div>
 
-        <div className="grid lg:grid-cols-[1fr_400px] gap-8 lg:gap-12 items-start">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_400px] gap-8 lg:gap-12 items-start">
           <m.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -99,7 +99,7 @@ ${data.message}`
             ) : (
               <form onSubmit={handleSubmit} autoComplete="on" className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 min-w-0">
                     <label htmlFor="contact-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
                       {t.contact.form.name}
                     </label>
@@ -111,10 +111,10 @@ ${data.message}`
                       required
                       maxLength={100}
                       minLength={2}
-                      className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11"
+                      className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11 w-full"
                     />
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 min-w-0">
                     <label htmlFor="contact-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
                       {t.contact.form.email}
                     </label>
@@ -126,13 +126,13 @@ ${data.message}`
                       placeholder={t.contact.form.emailPlaceholder}
                       required
                       maxLength={100}
-                      className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11"
+                      className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11 w-full"
                     />
                   </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 min-w-0">
                     <label htmlFor="contact-phone" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
                       {t.contact.form.phone}
                     </label>
@@ -142,16 +142,16 @@ ${data.message}`
                       autoComplete="tel"
                       placeholder={t.contact.form.phonePlaceholder}
                       maxLength={20}
-                      className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11"
+                      className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11 w-full"
                     />
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 min-w-0">
                     <label htmlFor="contact-project-type" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
                       {t.contact.form.projectType}
                     </label>
                     <Select name="projectType">
-                      <SelectTrigger id="contact-project-type" className="bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11">
-                        <SelectValue placeholder={t.contact.form.projectPlaceholder} />
+                      <SelectTrigger id="contact-project-type" className="w-full bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors h-11 overflow-hidden">
+                        <SelectValue placeholder={t.contact.form.projectPlaceholder} className="truncate" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="clt">CLT / PJ (Full-time)</SelectItem>
@@ -168,8 +168,8 @@ ${data.message}`
                     <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
                       {t.contact.form.message}
                     </label>
-                    <span className={`text-[9px] font-mono ${messageLength > 950 ? 'text-destructive' : 'text-muted-foreground'}`}>
-                      {messageLength}/1000
+                    <span className={`text-[9px] font-mono ${messageLength > 380 ? 'text-destructive' : 'text-muted-foreground'}`}>
+                      {messageLength}/400
                     </span>
                   </div>
                   <Textarea
@@ -178,10 +178,10 @@ ${data.message}`
                     autoComplete="off"
                     placeholder={t.contact.form.messagePlaceholder}
                     required
-                    maxLength={1000}
+                    maxLength={400}
                     minLength={10}
                     onChange={(e) => setMessageLength(e.target.value.length)}
-                    className="min-h-[120px] bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors resize-none"
+                    className="min-h-[150px] max-h-[300px] bg-secondary/20 border-border/50 focus:border-primary/50 transition-colors resize-none overflow-y-auto"
                   />
                 </div>
 
