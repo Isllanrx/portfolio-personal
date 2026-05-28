@@ -75,7 +75,7 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-4 flex items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center gap-2 group">
+        <Link href="#" className="flex items-center gap-2 group">
           <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
             <Image
               src="/logo.webp"
