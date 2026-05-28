@@ -81,6 +81,7 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
               src="/logo.webp"
               alt="Logo"
               fill
+              sizes="40px"
               className="object-contain"
               priority
             />
