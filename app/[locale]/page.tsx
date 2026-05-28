@@ -2,11 +2,11 @@ import dynamic from 'next/dynamic'
 import { Header } from '@/shared/layout/header'
 import { Footer } from '@/shared/layout/footer'
 import { HeroSection } from '@/features/hero/hero-section'
-import { TrustSection } from '@/features/trust/trust-section'
-import { ProjectsSection } from '@/features/projects/projects-section'
 import { getDictionary } from '@/i18n/get-dictionary'
 
-// Lazy load below-the-fold sections to reduce initial JS payload (CWV optimization)
+// Aggressive lazy loading for all below-the-fold sections
+const TrustSection = dynamic(() => import('@/features/trust/trust-section').then(mod => mod.TrustSection))
+const ProjectsSection = dynamic(() => import('@/features/projects/projects-section').then(mod => mod.ProjectsSection))
 const TechStackSection = dynamic(() => import('@/features/tech-stack/tech-stack-section').then(mod => mod.TechStackSection))
 const ExperienceSection = dynamic(() => import('@/features/experience/experience-section').then(mod => mod.ExperienceSection))
 const CertificationsSection = dynamic(() => import('@/features/certifications/certifications-section').then(mod => mod.CertificationsSection))
