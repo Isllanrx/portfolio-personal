@@ -160,6 +160,9 @@ export default async function LocaleLayout({
         "isPartOf": {
           "@id": "https://isllan.dev/#website"
         },
+        "mainEntity": {
+          "@id": "https://isllan.dev/#person"
+        },
         "about": {
           "@id": "https://isllan.dev/#person"
         }
