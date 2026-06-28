@@ -55,6 +55,11 @@ export const translations = {
           shortDescription: 'Plataforma para conversão de datasets CSV para formatos Big Data (Parquet, ORC).',
           techStack: 'Python, Pandas, PyArrow, Clean Architecture',
         },
+        'blog-esporte-uvv': {
+          title: 'Blog Esporte UVV',
+          shortDescription: 'Plataforma de blog esportivo com carregamento dinâmico via JSON, navegação por categorias e sistema admin leve.',
+          techStack: 'JavaScript, HTML, CSS, JSON',
+        },
       },
     },
     techStack: {
@@ -267,6 +272,11 @@ export const translations = {
           shortDescription: 'Platform for converting CSV datasets to Big Data formats (Parquet, ORC).',
           techStack: 'Python, Pandas, PyArrow, Clean Architecture',
         },
+        'blog-esporte-uvv': {
+          title: 'Blog Esporte UVV',
+          shortDescription: 'Modern sports blog platform with dynamic content loading via JSON, category navigation, and lightweight admin system.',
+          techStack: 'JavaScript, HTML, CSS, JSON',
+        },
       },
     },
     techStack: {
@@ -468,6 +478,11 @@ export const translations = {
           title: 'Analytics Converter',
           shortDescription: 'Plataforma para convertir CSV a formatos Big Data (Parquet, ORC).',
           techStack: 'Python, Pandas, PyArrow, Clean Architecture',
+        },
+        'blog-esporte-uvv': {
+          title: 'Blog Esporte UVV',
+          shortDescription: 'Plataforma de blog deportivo con carga dinámica vía JSON, navegación por categorías y sistema admin ligero.',
+          techStack: 'JavaScript, HTML, CSS, JSON',
         },
       },
     },

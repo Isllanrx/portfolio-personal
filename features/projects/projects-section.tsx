@@ -22,7 +22,7 @@ interface Project {
 const projectsData: Project[] = [
   {
     id: 'paulo-veiculos',
-    demo: 'https://paulo-veiculos.vercel.app/',
+    demo: 'https://www.pauloveiculo.com.br/',
     github: 'https://github.com/Isllanrx/automotive-sales-platform',
     featured: true,
   },
@@ -33,13 +33,18 @@ const projectsData: Project[] = [
   },
   {
     id: 'conversor-webp',
-    demo: 'https://conversor-webp.vercel.app/',
+    demo: 'https://conversor-webp.isllan.dev/',
     github: 'https://github.com/Isllanrx/webp-converter-tool',
     featured: true,
   },
   {
     id: 'analytics-converter',
     github: 'https://github.com/Isllanrx/analytics-converter',
+    featured: true,
+  },
+  {
+    id: 'blog-esporte-uvv',
+    demo: 'https://blog-esporte-uvv.isllan.dev/',
     featured: true,
   },
 ]
