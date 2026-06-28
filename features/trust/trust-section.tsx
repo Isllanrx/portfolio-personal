@@ -51,10 +51,12 @@ export function TrustSection({ dict: t }: { dict: any }) {
               {metrics.map((metric) => (
                 <div
                   key={metric.label}
-                  className="p-4 lg:p-6 rounded-2xl bg-card border border-border flex flex-col items-center text-center shadow-sm"
+                  className="p-4 lg:p-6 rounded-2xl bg-card border border-border hover:border-primary/30 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all group"
                 >
-                  <metric.icon className="w-6 h-6 lg:w-8 lg:h-8 text-primary mb-3 lg:mb-4" aria-hidden="true" />
-                  <div className="text-2xl lg:text-3xl font-bold mb-1 tracking-tighter">{metric.value}</div>
+                  <div className="p-2.5 rounded-xl bg-primary/10 group-hover:bg-primary/15 mb-3 lg:mb-4 transition-colors">
+                    <metric.icon className="w-5 h-5 lg:w-6 lg:h-6 text-primary" aria-hidden="true" />
+                  </div>
+                  <div className="text-2xl lg:text-3xl font-bold mb-1 tracking-tighter group-hover:text-primary transition-colors">{metric.value}</div>
                   <div className="text-[9px] lg:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{metric.label}</div>
                 </div>
               ))}

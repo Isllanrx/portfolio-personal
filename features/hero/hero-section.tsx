@@ -19,6 +19,13 @@ export function HeroSection({ dict: t }: { dict: any }) {
             transition={{ duration: 0.4 }}
             className="space-y-4"
           >
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 w-fit">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+              </span>
+              {t.hero.available}
+            </span>
             <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase block">
               {t.hero.role}
             </span>
@@ -160,7 +167,7 @@ export function HeroSection({ dict: t }: { dict: any }) {
       </div>
 
       <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-muted-foreground animate-bounce z-10">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Olhe abaixo</span>
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{t.hero.scrollDown}</span>
         <ArrowDown className="w-4 h-4" />
       </div>
     </section>

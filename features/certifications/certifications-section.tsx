@@ -109,17 +109,13 @@ export function CertificationsSection({ dict: t }: { dict: any }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {t.certifications.items.map((cert: Cert, index: number) => (
-            <div 
-              key={cert.title} 
-              className={index >= 3 ? 'hidden md:block' : 'block'}
-            >
-              <CertificationCard 
-                cert={cert} 
-                index={index} 
-                isInView={isInView} 
-                t={t}
-              />
-            </div>
+            <CertificationCard
+              key={cert.title}
+              cert={cert}
+              index={index}
+              isInView={isInView}
+              t={t}
+            />
           ))}
         </div>
       </div>

@@ -9,7 +9,6 @@ const TrustSection = dynamic(() => import('@/features/trust/trust-section').then
 const ProjectsSection = dynamic(() => import('@/features/projects/projects-section').then(mod => mod.ProjectsSection))
 const TechStackSection = dynamic(() => import('@/features/tech-stack/tech-stack-section').then(mod => mod.TechStackSection))
 const ExperienceSection = dynamic(() => import('@/features/experience/experience-section').then(mod => mod.ExperienceSection))
-const CertificationsSection = dynamic(() => import('@/features/certifications/certifications-section').then(mod => mod.CertificationsSection))
 const ContactSection = dynamic(() => import('@/features/contact/contact-section').then(mod => mod.ContactSection))
 
 export default async function Home({
@@ -29,7 +28,6 @@ export default async function Home({
         <ProjectsSection dict={dict} />
         <TechStackSection dict={dict} />
         <ExperienceSection dict={dict} />
-        <CertificationsSection dict={dict} />
         <ContactSection dict={dict} />
       </main>
       <Footer dict={dict} />

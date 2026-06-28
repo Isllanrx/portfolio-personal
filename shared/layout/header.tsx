@@ -43,11 +43,14 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`
+
   const navItems = [
-    { label: t.nav.projects, href: '#projects' },
-    { label: t.nav.experience, href: '#experience' },
-    { label: t.nav.about, href: '#about' },
-    { label: t.nav.contact, href: '#contact' },
+    { label: t.nav.projects, href: isHome ? '#projects' : `/${locale}#projects` },
+    { label: t.nav.experience, href: isHome ? '#experience' : `/${locale}#experience` },
+    { label: t.nav.about, href: isHome ? '#about' : `/${locale}#about` },
+    { label: t.nav.contact, href: isHome ? '#contact' : `/${locale}#contact` },
+    { label: t.nav.certifications, href: `/${locale}/certifications` },
   ]
 
   return (
