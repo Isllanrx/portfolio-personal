@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 
 
@@ -9,7 +10,7 @@ import { Calendar, Clock, ChevronRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 
-export function BlogSection({ dict: t }: { dict: any }) {
+export function BlogSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -31,7 +32,7 @@ export function BlogSection({ dict: t }: { dict: any }) {
         </m.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {t.blog.items.map((post: any, index: number) => (
+          {t.blog.items.map((post, index) => (
             <m.div
               key={post.title}
               initial={{ opacity: 0, y: 20 }}

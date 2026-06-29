@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 
 
@@ -10,7 +11,7 @@ import { Target, BarChart3, LayoutGrid } from 'lucide-react'
 
 const areaIcons = [Target, BarChart3, LayoutGrid]
 
-export function SystemDesignSection({ dict: t }: { dict: any }) {
+export function SystemDesignSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -32,7 +33,7 @@ export function SystemDesignSection({ dict: t }: { dict: any }) {
         </m.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {t.areas.items.map((item: any, index: number) => {
+          {t.areas.items.map((item, index) => {
             const Icon = areaIcons[index]
             
             return (

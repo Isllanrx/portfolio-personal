@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 
 
@@ -7,7 +8,7 @@ import { m, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 
-export function AboutSection({ dict: t }: { dict: any }) {
+export function AboutSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -50,7 +51,7 @@ export function AboutSection({ dict: t }: { dict: any }) {
             <div className="p-6 rounded-xl bg-card border border-border">
               <h3 className="font-semibold mb-2">{t.about.principlesTitle}</h3>
               <ul className="space-y-3 text-muted-foreground">
-                {t.about.principles.map((principle: any, index: number) => (
+                {t.about.principles.map((principle, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                     <span>{principle}</span>

@@ -1,10 +1,11 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export function HeroSection({ dict: t }: { dict: any }) {
+export function HeroSection({ dict: t }: { dict: Dictionary }) {
   return (
     <section className="relative min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 pb-12 lg:pt-32 lg:pb-16 overflow-hidden">
       {/* Background decoration - optimized with pointer-events-none */}
@@ -112,7 +113,7 @@ export function HeroSection({ dict: t }: { dict: any }) {
               className="object-cover transition-transform duration-700"
               priority
               quality={100}
-              // @ts-ignore
+              // @ts-expect-error — fetchPriority not in @types/react yet
               fetchPriority="high"
               style={{
                 filter: 'contrast(1.04) brightness(1.02) saturate(1.04)',
@@ -120,17 +121,6 @@ export function HeroSection({ dict: t }: { dict: any }) {
               }}
             />
           </div>
-          
-          <style jsx global>{`
-            @keyframes circuit-flow {
-              0% { stroke-dashoffset: 400; }
-              100% { stroke-dashoffset: 0; }
-            }
-            .animate-circuit-flow {
-              animation: circuit-flow 3s linear infinite;
-              filter: drop-shadow(0 0 8px var(--primary));
-            }
-          `}</style>
           
           {/* Mobile Social Links */}
           <nav className="flex lg:hidden gap-8 mt-12" aria-label="Redes sociais mobile">

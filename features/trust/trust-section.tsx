@@ -1,9 +1,10 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Code, GraduationCap, TrendingUp } from 'lucide-react'
 
-export function TrustSection({ dict: t }: { dict: any }) {
+export function TrustSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 

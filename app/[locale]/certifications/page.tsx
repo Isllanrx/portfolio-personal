@@ -2,6 +2,7 @@ import { Header } from '@/shared/layout/header'
 import { Footer } from '@/shared/layout/footer'
 import { CertificationsSection } from '@/features/certifications/certifications-section'
 import { getDictionary } from '@/i18n/get-dictionary'
+import type { Locale } from '@/lib/i18n/translations'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -10,7 +11,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const dict = await getDictionary(locale as any)
+  const dict = await getDictionary(locale as Locale)
 
   return {
     title: dict.nav.certifications,
@@ -32,7 +33,7 @@ export default async function CertificationsPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const dict = await getDictionary(locale as any)
+  const dict = await getDictionary(locale as Locale)
 
   return (
     <>

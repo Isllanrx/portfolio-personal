@@ -184,3 +184,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: color-mix(in oklch, var(--primary), transparent 30%);
 }
+
+@keyframes circuit-flow {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-circuit-flow {
+  animation: circuit-flow 3s linear infinite;
+  filter: drop-shadow(0 0 8px var(--primary));
+}

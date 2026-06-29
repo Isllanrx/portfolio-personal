@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView, useMotionValue, useMotionTemplate } from 'framer-motion'
 import { useRef, MouseEvent } from 'react'
 import { Award, Clock, ExternalLink } from 'lucide-react'
@@ -10,7 +11,7 @@ interface Cert {
   link?: string
 }
 
-function CertificationCard({ cert, index, isInView, t }: { cert: Cert; index: number; isInView: boolean; t: any }) {
+function CertificationCard({ cert, index, isInView, t }: { cert: Cert; index: number; isInView: boolean; t: Dictionary }) {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -82,7 +83,7 @@ function CertificationCard({ cert, index, isInView, t }: { cert: Cert; index: nu
   )
 }
 
-export function CertificationsSection({ dict: t }: { dict: any }) {
+export function CertificationsSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 

@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 
 
@@ -35,7 +36,7 @@ const techStack: TechCategory[] = [
   },
 ]
 
-export function TechStackSection({ dict: t }: { dict: any }) {
+export function TechStackSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 

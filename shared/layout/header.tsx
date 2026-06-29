@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { AnimatePresence, m } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -10,7 +11,7 @@ import { useRouter, usePathname } from 'next/navigation'
 
 const locales: Locale[] = ['pt', 'en', 'es']
 
-export function Header({ dict: t, locale }: { dict: any, locale: string }) {
+export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -37,6 +38,7 @@ export function Header({ dict: t, locale }: { dict: any, locale: string }) {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)

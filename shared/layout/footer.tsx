@@ -1,9 +1,9 @@
 'use client'
-
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { Github, Linkedin, Mail } from 'lucide-react'
 
 
-export function Footer({ dict: t }: { dict: any }) {
+export function Footer({ dict: t }: { dict: Dictionary }) {
   const currentYear = new Date().getFullYear()
 
   return (

@@ -1,6 +1,7 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
-import { useRef, useState, useMemo } from 'react'
+import { useRef, useState } from 'react'
 import { ExternalLink, Github, ChevronRight } from 'lucide-react'
 import {
   Dialog,
@@ -10,7 +11,6 @@ import {
   DialogDescription,
 } from '@/shared/ui/dialog'
 import { Badge } from '@/shared/ui/badge'
-import Script from 'next/script'
 
 interface Project {
   id: string
@@ -49,7 +49,7 @@ const projectsData: Project[] = [
   },
 ]
 
-function ProjectCard({ project, onClick, t }: { project: Project; onClick: () => void; t: any }) {
+function ProjectCard({ project, onClick, t }: { project: Project; onClick: () => void; t: Dictionary }) {
   const projectTranslation = t.projects.items[project.id as keyof typeof t.projects.items]
   
   return (
@@ -93,7 +93,7 @@ function ProjectCard({ project, onClick, t }: { project: Project; onClick: () =>
   )
 }
 
-function ProjectModal({ project, open, onClose, t }: { project: Project | null; open: boolean; onClose: () => void; t: any }) {
+function ProjectModal({ project, open, onClose, t }: { project: Project | null; open: boolean; onClose: () => void; t: Dictionary }) {
   if (!project) return null
 
   const projectTranslation = t.projects.items[project.id as keyof typeof t.projects.items]
@@ -145,7 +145,7 @@ function ProjectModal({ project, open, onClose, t }: { project: Project | null; 
   )
 }
 
-export function ProjectsSection({ dict: t }: { dict: any }) {
+export function ProjectsSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)

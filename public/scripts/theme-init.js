@@ -20,5 +20,5 @@
     };
     window.addEventListener('mousemove', trackMouse, { passive: true });
     window.addEventListener('mousedown', trackMouse, { passive: true });
-  } catch (e) {}
+  } catch { }
 })()

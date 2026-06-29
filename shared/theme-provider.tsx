@@ -30,8 +30,9 @@ export function ThemeProvider({
     const root = window.document.documentElement
     const savedTheme = localStorage.getItem(storageKey) as Theme || defaultTheme
     
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(savedTheme)
-    
+
     // Initial sync
     root.classList.remove('light', 'dark')
     if (savedTheme === 'system') {

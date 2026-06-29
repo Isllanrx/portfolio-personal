@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { LangSetter } from '@/shared/ui/lang-setter'
+
+const VALID_LOCALES = ['pt', 'en', 'es'] as const
+type Locale = (typeof VALID_LOCALES)[number]
+
+function isValidLocale(locale: string): locale is Locale {
+  return (VALID_LOCALES as readonly string[]).includes(locale)
+}
 
 export async function generateMetadata({
   params,
@@ -8,7 +16,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const dict = await getDictionary(locale as any)
+  if (!isValidLocale(locale)) return {}
+  const dict = await getDictionary(locale)
 
   const baseUrl =
     process.env.NODE_ENV === 'development'
@@ -92,6 +101,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  if (!isValidLocale(locale)) notFound()
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -131,7 +141,12 @@ export default async function LocaleLayout({
       <LangSetter locale={locale} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e')
+            .replace(/&/g, '\\u0026'),
+        }}
       />
       {children}
     </>

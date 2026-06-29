@@ -1,11 +1,10 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { GraduationCap, CheckCircle2 } from 'lucide-react'
-import Script from 'next/script'
 
-
-export function ExperienceSection({ dict: t }: { dict: any }) {
+export function ExperienceSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -31,7 +30,7 @@ export function ExperienceSection({ dict: t }: { dict: any }) {
           <div className="space-y-8 lg:space-y-12 relative">
             <div className="absolute left-[7.5px] top-2 bottom-2 w-px bg-border hidden md:block" />
             
-            {t.experience.items.map((exp: any, index: number) => (
+            {t.experience.items.map((exp, index) => (
               <article
                 key={index}
                 className="relative pl-0 md:pl-10 group"

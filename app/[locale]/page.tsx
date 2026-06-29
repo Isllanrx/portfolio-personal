@@ -3,6 +3,7 @@ import { Header } from '@/shared/layout/header'
 import { Footer } from '@/shared/layout/footer'
 import { HeroSection } from '@/features/hero/hero-section'
 import { getDictionary } from '@/i18n/get-dictionary'
+import type { Locale } from '@/lib/i18n/translations'
 
 // Aggressive lazy loading for all below-the-fold sections
 const TrustSection = dynamic(() => import('@/features/trust/trust-section').then(mod => mod.TrustSection))
@@ -17,7 +18,7 @@ export default async function Home({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params;
-  const dict = await getDictionary(locale as any);
+  const dict = await getDictionary(locale as Locale);
 
   return (
     <>

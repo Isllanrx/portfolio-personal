@@ -1,4 +1,5 @@
 'use client'
+import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 
 
@@ -10,7 +11,7 @@ import { Globe, ShoppingBag, BookOpen, ChevronRight } from 'lucide-react'
 
 const icons = [Globe, ShoppingBag, BookOpen]
 
-export function ServicesSection({ dict: t }: { dict: any }) {
+export function ServicesSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -32,7 +33,7 @@ export function ServicesSection({ dict: t }: { dict: any }) {
         </m.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {t.services.items.map((service: any, index: number) => {
+          {t.services.items.map((service, index) => {
             const Icon = icons[index]
             return (
               <m.div
