@@ -1,0 +1,38 @@
+# Dependências
+node_modules/
+
+# Build / outputs
+.next/
+dist/
+build/
+out/
+.turbo/
+
+# Locks (ler apenas quando necessário)
+package-lock.json
+pnpm-lock.yaml
+
+# Dados e binários
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.ico
+*.webp
+*.woff
+*.woff2
+
+# Temporários e cache
+.cache/
+.temp/
+tmp/
+*.log
+*.tmp
+
+# Secrets (nunca ler)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12

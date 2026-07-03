@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://isllan.dev'
-  const lastModified = new Date('2025-01-01')
+  const lastModified = new Date()
 
   return [
     {

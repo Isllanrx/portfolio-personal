@@ -87,24 +87,22 @@ export function ExperienceSection({ dict: t }: { dict: Dictionary }) {
               </div>
             </div>
 
-            {t.experience.military && (
-              <div className="p-6 rounded-2xl bg-card border border-border group hover:border-primary/30 transition-colors">
-                <h4 className="font-bold text-base group-hover:text-primary transition-colors">
-                  {t.experience.military.title}
-                </h4>
-                <div className="text-xs font-semibold mt-1">{t.experience.military.company}</div>
-                <div className="text-[10px] text-muted-foreground mt-1 font-mono">{t.experience.military.period}</div>
+            <div className="p-6 rounded-2xl bg-card border border-border group hover:border-primary/30 transition-colors">
+              <h4 className="font-bold text-base group-hover:text-primary transition-colors">
+                {t.experience.military.title}
+              </h4>
+              <div className="text-xs font-semibold mt-1">{t.experience.military.company}</div>
+              <div className="text-[10px] text-muted-foreground mt-1 font-mono">{t.experience.military.period}</div>
 
-                <ul className="mt-4 space-y-2">
-                  {t.experience.military.bullets.map((bullet: string, i: number) => (
-                    <li key={i} className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground">
-                      <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 shrink-0" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              <ul className="mt-4 space-y-2">
+                {t.experience.military.bullets.map((bullet: string, i: number) => (
+                  <li key={i} className="flex gap-2 text-[11px] leading-relaxed text-muted-foreground">
+                    <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 shrink-0" />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </aside>
         </div>
       </div>

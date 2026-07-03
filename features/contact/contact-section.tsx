@@ -1,10 +1,6 @@
 'use client'
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
-
-
-
-
 import { useRef, useState } from 'react'
 import { Mail, Github, Linkedin, Send, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -62,7 +58,7 @@ ${data.message}`
   }
 
   return (
-    <section id="contact" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border">
+    <section id="contact" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <m.div
           initial={{ opacity: 0, y: 10 }}
@@ -70,10 +66,10 @@ ${data.message}`
           transition={{ duration: 0.5 }}
           className="mb-8 lg:mb-16"
         >
-          <span className="text-primary font-mono text-xs lg:text-sm tracking-wider mb-4 block uppercase">
+          <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
             {t.contact.sectionLabel}
           </span>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-4 tracking-tight">
             {t.contact.title}
           </h2>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed">
@@ -155,10 +151,10 @@ ${data.message}`
                         <SelectValue placeholder={t.contact.form.projectPlaceholder} className="truncate" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="clt">CLT / PJ (Full-time)</SelectItem>
-                        <SelectItem value="backend">Backend / APIs</SelectItem>
-                        <SelectItem value="automation">Automação / RPA</SelectItem>
-                        <SelectItem value="other">Outros</SelectItem>
+                        <SelectItem value="clt">{t.contact.form.options.clt}</SelectItem>
+                        <SelectItem value="backend">{t.contact.form.options.backend}</SelectItem>
+                        <SelectItem value="automation">{t.contact.form.options.automation}</SelectItem>
+                        <SelectItem value="other">{t.contact.form.options.other}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -216,7 +212,7 @@ ${data.message}`
             >
               <div className="space-y-4">
                 <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                  Links Diretos
+                  {t.contact.directLinks}
                 </h3>
                 <div className="grid gap-3">
                   {[
@@ -251,7 +247,7 @@ ${data.message}`
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                    Disponibilidade
+                    {t.contact.availabilityLabel}
                   </h3>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">

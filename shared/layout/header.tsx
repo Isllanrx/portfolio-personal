@@ -31,10 +31,14 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
     router.push(segments.join('/'), { scroll: false })
   }
 
-  const scrollToTop = (e: React.MouseEvent) => {
-    e.preventDefault()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    window.history.pushState({}, '', `/${locale}`)
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    // Na home apenas rola ao topo; fora dela deixa o Link navegar normalmente
+    if (isHome) {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   useEffect(() => {
@@ -44,8 +48,6 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`
 
   const navItems = [
     { label: t.nav.projects, href: isHome ? '#projects' : `/${locale}#projects` },
@@ -64,7 +66,7 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-4 flex items-center justify-between">
-        <Link href="#" onClick={scrollToTop} className="flex items-center gap-2 group">
+        <Link href={`/${locale}`} onClick={handleLogoClick} className="flex items-center gap-2 group">
           <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
             <Image
               src="/logo.webp"

@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/shared/theme-provider'
 import { MotionProvider } from '@/shared/ui/motion-provider'
 import { CustomCursor } from '@/shared/ui/custom-cursor'
 import Script from 'next/script'
-import { Suspense } from 'react'
 import './globals.css'
 
 const inter = Inter({
@@ -42,21 +41,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src="/scripts/theme-init.js"
           strategy="beforeInteractive"
         />
-        <Suspense>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-            disableTransitionOnChange
-            enableColorScheme={false}
-          >
-            <MotionProvider>
-              <CustomCursor />
-              {children}
-              {process.env.NODE_ENV === 'production' && <Analytics />}
-            </MotionProvider>
-          </ThemeProvider>
-        </Suspense>
+        <ThemeProvider defaultTheme="dark">
+          <MotionProvider>
+            <CustomCursor />
+            {children}
+            {process.env.NODE_ENV === 'production' && <Analytics />}
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

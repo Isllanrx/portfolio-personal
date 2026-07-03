@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
 import { Header } from '@/shared/layout/header'
 import { Footer } from '@/shared/layout/footer'
 import { HeroSection } from '@/features/hero/hero-section'
@@ -31,7 +32,10 @@ export default async function Home({
         <ExperienceSection dict={dict} />
         <ContactSection dict={dict} />
       </main>
-      <Footer dict={dict} />
+      {/* Boundary exigido por cacheComponents: Footer usa new Date() */}
+      <Suspense>
+        <Footer dict={dict} />
+      </Suspense>
     </>
   )
 }

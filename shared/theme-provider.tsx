@@ -15,14 +15,10 @@ export function ThemeProvider({
   children, 
   defaultTheme = 'dark',
   storageKey = 'theme'
-}: { 
+}: {
   children: React.ReactNode
   defaultTheme?: Theme
   storageKey?: string
-  attribute?: string
-  enableSystem?: boolean
-  disableTransitionOnChange?: boolean
-  enableColorScheme?: boolean
 }) {
   const [theme, setTheme] = React.useState<Theme | undefined>(undefined)
 

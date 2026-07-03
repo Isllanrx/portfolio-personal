@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    // TODO: remove after adding translations for about/blog/services/system-design sections
-    ignoreBuildErrors: true,
-  },
   trailingSlash: false,
   cacheComponents: true,
   logging: {

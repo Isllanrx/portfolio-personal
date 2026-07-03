@@ -110,11 +110,9 @@ export function HeroSection({ dict: t }: { dict: Dictionary }) {
               alt="Isllan Toso Pereira - Desenvolvedor Backend Python"
               fill
               sizes="(max-width: 768px) 220px, 400px"
-              className="object-cover transition-transform duration-700"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
               priority
               quality={100}
-              // @ts-expect-error — fetchPriority not in @types/react yet
-              fetchPriority="high"
               style={{
                 filter: 'contrast(1.04) brightness(1.02) saturate(1.04)',
                 imageRendering: '-webkit-optimize-contrast'

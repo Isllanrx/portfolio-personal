@@ -4,6 +4,7 @@ import { CertificationsSection } from '@/features/certifications/certifications-
 import { getDictionary } from '@/i18n/get-dictionary'
 import type { Locale } from '@/lib/i18n/translations'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 export async function generateMetadata({
   params,
@@ -41,7 +42,10 @@ export default async function CertificationsPage({
       <main className="pt-24">
         <CertificationsSection dict={dict} />
       </main>
-      <Footer dict={dict} />
+      {/* Boundary exigido por cacheComponents: Footer usa new Date() */}
+      <Suspense>
+        <Footer dict={dict} />
+      </Suspense>
     </>
   )
 }

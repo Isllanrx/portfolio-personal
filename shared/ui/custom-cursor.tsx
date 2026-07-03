@@ -2,16 +2,14 @@
 
 import { useEffect, useRef } from 'react'
 
-const POINTS_COUNT = 30
-const PHYSICS_TICK = 1000 / 120
+const POINTS_COUNT = 40
+const DOTS_DENSITY = 0.5
 
 export function CustomCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef({ x: -200, y: -200 })
   const isPointerRef = useRef(false)
   const pointsRef = useRef<{ x: number; y: number }[]>([])
-  const lastTickRef = useRef(0)
-  const lastFrameRef = useRef(0)
   const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -36,41 +34,42 @@ export function CustomCursor() {
     mouseRef.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
     pointsRef.current = Array.from({ length: POINTS_COUNT }, () => ({ ...mouseRef.current }))
 
-    const draw = (time: number) => {
-      const dt = Math.min(time - lastFrameRef.current, 50)
-      lastFrameRef.current = time
+    // Cached theme color — reading getComputedStyle per frame forces a style recalc
+    let primaryColor =
+      getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#6366f1'
+    const themeObserver = new MutationObserver(() => {
+      primaryColor =
+        getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#6366f1'
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 
-      if (time - lastTickRef.current > PHYSICS_TICK) {
-        pointsRef.current.unshift({ ...mouseRef.current })
-        if (pointsRef.current.length > POINTS_COUNT) pointsRef.current.pop()
-        lastTickRef.current = time
-      }
+    // Rastro estilo spline: histórico da posição real + dots interpolados entre pontos
+    const draw = () => {
+      pointsRef.current.unshift({ ...mouseRef.current })
+      if (pointsRef.current.length > POINTS_COUNT) pointsRef.current.pop()
 
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
-      const primaryColor =
-        getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() ||
-        '#6366f1'
-
       const isPointer = isPointerRef.current
 
-      for (let i = 1; i < pointsRef.current.length; i++) {
-        const p = pointsRef.current[i]
-        const prev = pointsRef.current[i - 1]
-        const easing = 0.35 * Math.pow(0.9, i)
-        const actual = 1 - Math.pow(1 - easing, dt / 16.67)
-        p.x += (prev.x - p.x) * (actual || easing)
-        p.y += (prev.y - p.y) * (actual || easing)
-      }
+      for (let i = 0; i < pointsRef.current.length - 1; i++) {
+        const p1 = pointsRef.current[i]
+        const p2 = pointsRef.current[i + 1]
+        const dx = p2.x - p1.x
+        const dy = p2.y - p1.y
+        const distance = Math.sqrt(dx * dx + dy * dy)
+        const steps = Math.max(1, distance * DOTS_DENSITY)
 
-      pointsRef.current.forEach((p, i) => {
-        const progress = i / POINTS_COUNT
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, Math.max(0.5, (isPointer ? 5 : 3.5) * (1 - progress)), 0, Math.PI * 2)
-        ctx.fillStyle = primaryColor
-        ctx.globalAlpha = Math.max(0, (isPointer ? 0.7 : 0.4) * (1 - progress))
-        ctx.fill()
-      })
+        for (let j = 0; j < steps; j++) {
+          const t = j / steps
+          const progress = (i + t) / POINTS_COUNT
+          ctx.beginPath()
+          ctx.arc(p1.x + dx * t, p1.y + dy * t, Math.max(0.5, (isPointer ? 5 : 3.5) * (1 - progress)), 0, Math.PI * 2)
+          ctx.fillStyle = primaryColor
+          ctx.globalAlpha = Math.max(0, (isPointer ? 0.8 : 0.5) * (1 - progress))
+          ctx.fill()
+        }
+      }
 
       const head = pointsRef.current[0]
       if (head) {
@@ -109,7 +108,6 @@ export function CustomCursor() {
     window.addEventListener('resize', onResize)
     document.documentElement.classList.add('cursor-none')
 
-    lastFrameRef.current = performance.now()
     rafRef.current = requestAnimationFrame(draw)
 
     // Show only after canvas is initialized — avoids the blurry flash on F5
@@ -118,6 +116,7 @@ export function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onResize)
+      themeObserver.disconnect()
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       document.documentElement.classList.remove('cursor-none')
     }

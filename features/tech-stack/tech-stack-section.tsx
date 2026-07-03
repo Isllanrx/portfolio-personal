@@ -1,12 +1,7 @@
 'use client'
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
-
-
-
-
 import { useRef } from 'react'
-
 
 interface TechCategory {
   key: 'languages' | 'frameworks' | 'databases' | 'devops' | 'concepts'
@@ -49,10 +44,10 @@ export function TechStackSection({ dict: t }: { dict: Dictionary }) {
           transition={{ duration: 0.5 }}
           className="mb-8 lg:mb-16"
         >
-          <span className="text-primary font-mono text-xs lg:text-sm tracking-wider mb-4 block">
+          <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
             {t.techStack.sectionLabel}
           </span>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-4 tracking-tight">
             {t.techStack.title}
           </h2>
         </m.div>

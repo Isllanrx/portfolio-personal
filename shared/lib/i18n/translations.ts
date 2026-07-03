@@ -142,16 +142,6 @@ export const translations = {
           ],
         },
       ],
-      military: {
-        title: 'Militar · NPOR',
-        company: 'Exército Brasileiro',
-        period: '2021',
-        bullets: [
-          'Liderança e gestão de equipes em ambientes de alta pressão.',
-          'Planejamento operacional baseado em prioridades e disciplina.',
-          'Treinamento e padronização de boas práticas operacionais.',
-        ],
-      },
       education: {
         title: 'Formação',
         period: '2023 — 2026',
@@ -162,6 +152,16 @@ export const translations = {
           'Foco em engenharia de software e estruturas de dados complexas.',
           'Estudos em arquitetura de sistemas e programação orientada a objetos.',
           'Projetos práticos utilizando Python, Java e JavaScript.',
+        ],
+      },
+      military: {
+        title: 'Militar · NPOR',
+        company: 'Exército Brasileiro',
+        period: 'Jan 2021 — Dez 2021',
+        bullets: [
+          'Liderança e gestão de equipes em ambientes de alta pressão; foco em disciplina, colaboração e resultados.',
+          'Planejamento e execução operacional baseada em prioridades, metas de produtividade e melhoria de eficiência.',
+          'Treinamento e desenvolvimento comportamental de equipes, garantindo a padronização de boas práticas.',
         ],
       },
     },
@@ -186,6 +186,8 @@ export const translations = {
       title: 'Vamos conversar?',
       description: 'Retorno em até 24 horas úteis.',
       availability: 'Disponível para novos desafios e projetos.',
+      availabilityLabel: 'Disponibilidade',
+      directLinks: 'Links Diretos',
       form: {
         name: 'Nome',
         namePlaceholder: 'Seu nome',
@@ -201,6 +203,12 @@ export const translations = {
         sending: 'Enviando...',
         successTitle: 'Enviado!',
         successMessage: 'Obrigado! Responderei em breve.',
+        options: {
+          clt: 'CLT / PJ (Full-time)',
+          backend: 'Backend / APIs',
+          automation: 'Automação / RPA',
+          other: 'Outros',
+        },
       },
     },
     footer: {
@@ -215,8 +223,8 @@ export const translations = {
     language: {
       label: 'Idioma',
       pt: 'Português',
-      en: 'Inglés',
-      es: 'Español',
+      en: 'Inglês',
+      es: 'Espanhol',
     },
   },
   en: {
@@ -374,6 +382,16 @@ export const translations = {
           'Practical projects using Python, Java, and JavaScript.',
         ],
       },
+      military: {
+        title: 'Military · NPOR',
+        company: 'Brazilian Army',
+        period: 'Jan 2021 — Dec 2021',
+        bullets: [
+          'Leadership and team management in high-pressure environments; focus on discipline, collaboration and results.',
+          'Operational planning and execution based on priorities, productivity goals and efficiency improvements.',
+          'Team training and behavioral development, ensuring standardization of best practices.',
+        ],
+      },
     },
     certifications: {
       sectionLabel: 'CERTIFICATIONS',
@@ -396,6 +414,8 @@ export const translations = {
       title: 'Let\'s talk?',
       description: 'Response within 24 business hours.',
       availability: 'Available for new challenges and projects.',
+      availabilityLabel: 'Availability',
+      directLinks: 'Direct Links',
       form: {
         name: 'Name',
         namePlaceholder: 'Your name',
@@ -411,6 +431,12 @@ export const translations = {
         sending: 'Sending...',
         successTitle: 'Sent!',
         successMessage: 'Thanks! I will get back to you soon.',
+        options: {
+          clt: 'Full-time (CLT / Contract)',
+          backend: 'Backend / APIs',
+          automation: 'Automation / RPA',
+          other: 'Other',
+        },
       },
     },
     footer: {
@@ -584,6 +610,16 @@ export const translations = {
           'Proyectos prácticos utilizando Python, Java y JavaScript.',
         ],
       },
+      military: {
+        title: 'Militar · NPOR',
+        company: 'Ejército Brasileño',
+        period: 'Ene 2021 — Dic 2021',
+        bullets: [
+          'Liderazgo y gestión de equipos en entornos de alta presión; enfoque en disciplina, colaboración y resultados.',
+          'Planificación y ejecución operativa basada en prioridades, metas de productividad y mejora de eficiencia.',
+          'Entrenamiento y desarrollo conductual de equipos, garantizando la estandarización de buenas prácticas.',
+        ],
+      },
     },
     certifications: {
       sectionLabel: 'CERTIFICACIONES',
@@ -606,6 +642,8 @@ export const translations = {
       title: '¿Hablamos?',
       description: 'Respuesta en hasta 24 horas hábiles.',
       availability: 'Disponible para nuevos desafíos y proyectos.',
+      availabilityLabel: 'Disponibilidad',
+      directLinks: 'Enlaces Directos',
       form: {
         name: 'Nombre',
         namePlaceholder: 'Tu nombre',
@@ -621,6 +659,12 @@ export const translations = {
         sending: 'Enviando...',
         successTitle: '¡Enviado!',
         successMessage: '¡Gracias! Te responderé pronto.',
+        options: {
+          clt: 'Tiempo completo (CLT / PJ)',
+          backend: 'Backend / APIs',
+          automation: 'Automatización / RPA',
+          other: 'Otros',
+        },
       },
     },
     footer: {
