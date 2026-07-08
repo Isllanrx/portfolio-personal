@@ -2,7 +2,6 @@
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
-import Link from 'next/link'
 import Image from 'next/image'
 
 export function HeroSection({ dict: t }: { dict: Dictionary }) {
@@ -12,7 +11,7 @@ export function HeroSection({ dict: t }: { dict: Dictionary }) {
       <div className="absolute top-1/4 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse pointer-events-none" aria-hidden="true" />
       <div className="absolute bottom-1/4 -left-24 w-72 h-72 bg-secondary/20 rounded-full blur-3xl -z-10 pointer-events-none" aria-hidden="true" />
 
-      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1fr_400px] gap-8 lg:gap-12 items-center">
+      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1fr_360px] gap-8 lg:gap-12 items-center">
         <header className="space-y-8 lg:space-y-12">
           <m.div
             initial={{ opacity: 0.5, y: 10 }}
@@ -36,25 +35,7 @@ export function HeroSection({ dict: t }: { dict: Dictionary }) {
                 {t.hero.titleHighlight}
               </span>
             </h1>
-            <p className="text-lg lg:text-xl text-muted-foreground max-w-xl leading-relaxed">
-              {t.hero.description}
-            </p>
           </m.div>
-
-          <nav className="flex flex-wrap gap-3 lg:gap-4" aria-label="Ações principais">
-            <Link
-              href="#projects"
-              className="px-6 py-3 lg:px-8 lg:py-4 bg-[image:var(--grad-primary)] text-primary-foreground rounded-full font-bold hover:opacity-90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20 text-sm lg:text-base border border-primary/20"
-            >
-              {t.hero.viewProjects}
-            </Link>
-            <Link
-              href="#contact"
-              className="px-6 py-3 lg:px-8 lg:py-4 bg-secondary/50 backdrop-blur-sm text-secondary-foreground rounded-full font-bold hover:bg-secondary/80 transition-all hover:scale-105 active:scale-95 text-sm lg:text-base border border-border"
-            >
-              {t.hero.getInTouch}
-            </Link>
-          </nav>
 
           <nav className="hidden lg:flex gap-6" aria-label="Redes sociais">
             <a
@@ -91,14 +72,14 @@ export function HeroSection({ dict: t }: { dict: Dictionary }) {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="relative flex flex-col items-center lg:block"
         >
-          <div className="relative w-[220px] h-[280px] md:w-[400px] md:h-[500px] rounded-[2rem] overflow-hidden border border-border bg-card shadow-[0_20px_50px_rgba(0,0,0,0.2)] group">
+          <div className="relative w-[260px] md:w-[340px] aspect-[3/4] rounded-[2.5rem] overflow-hidden border border-border bg-card shadow-[0_20px_50px_rgba(0,0,0,0.2)] group">
             {/* Circuit Line Animation Overlay */}
             <div className="absolute inset-0 z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500">
-              <svg className="w-full h-full" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect 
-                  x="2" y="2" width="396" height="496" rx="30" 
-                  stroke="var(--primary)" 
-                  strokeWidth="2" 
+              <svg className="w-full h-full" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <rect
+                  x="2" y="2" width="296" height="396" rx="34"
+                  stroke="var(--primary)"
+                  strokeWidth="2"
                   strokeDasharray="100 300"
                   className="animate-circuit-flow"
                 />
@@ -106,11 +87,11 @@ export function HeroSection({ dict: t }: { dict: Dictionary }) {
             </div>
 
             <Image
-              src="/perfil.webp"
+              src="/Me.jpeg"
               alt="Isllan Toso Pereira - Desenvolvedor Backend Python"
               fill
-              sizes="(max-width: 768px) 220px, 400px"
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              sizes="(max-width: 768px) 260px, 340px"
+              className="object-cover object-[center_18%] scale-[1.05] transition-transform duration-700 group-hover:scale-[1.1]"
               priority
               quality={100}
               style={{
@@ -150,7 +131,7 @@ export function HeroSection({ dict: t }: { dict: Dictionary }) {
           </nav>
           
           {/* Decorative frame element */}
-          <div className="absolute top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-4 -inset-4 border-2 border-primary/20 rounded-[2.5rem] -z-10 translate-y-4 w-[220px] h-[280px] md:w-[400px] md:h-[500px] hidden lg:block" aria-hidden="true" />
+          <div className="absolute top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-4 -inset-4 border-2 border-primary/20 rounded-[3rem] -z-10 translate-y-4 w-[260px] md:w-[340px] aspect-[3/4] hidden lg:block" aria-hidden="true" />
         </m.div>
       </div>
 

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk ls *)",
+      "Bash(rtk read *)",
+      "Bash(rtk wc *)",
+      "Bash(rtk grep *)",
+      "Bash(rmdir shared/hooks)",
+      "Bash(rtk pnpm *)",
+      "Bash(rtk tsc *)",
+      "Bash(rtk lint *)",
+      "Bash(pnpm build *)",
+      "Bash(rtk git *)"
+    ]
+  }
+}

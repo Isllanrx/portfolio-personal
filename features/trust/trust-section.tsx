@@ -43,22 +43,22 @@ export function TrustSection({ dict: t }: { dict: Dictionary }) {
             </h2>
           </header>
 
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
             <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
               {t.trust.description}
             </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4" aria-label="Métricas profissionais">
+
+            <div className="grid grid-cols-3 gap-2 lg:gap-3" aria-label="Métricas profissionais">
               {metrics.map((metric) => (
                 <div
                   key={metric.label}
-                  className="p-4 lg:p-6 rounded-2xl bg-card border border-border hover:border-primary/30 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all group"
+                  className="p-3 rounded-xl bg-card border border-border hover:border-primary/30 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all group"
                 >
-                  <div className="p-2.5 rounded-xl bg-primary/10 group-hover:bg-primary/15 mb-3 lg:mb-4 transition-colors">
-                    <metric.icon className="w-5 h-5 lg:w-6 lg:h-6 text-primary" aria-hidden="true" />
+                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/15 mb-2 transition-colors">
+                    <metric.icon className="w-4 h-4 text-primary" aria-hidden="true" />
                   </div>
-                  <div className="text-2xl lg:text-3xl font-bold mb-1 tracking-tighter group-hover:text-primary transition-colors">{metric.value}</div>
-                  <div className="text-[9px] lg:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{metric.label}</div>
+                  <div className="text-lg lg:text-xl font-bold tracking-tighter group-hover:text-primary transition-colors">{metric.value}</div>
+                  <div className="text-[8px] lg:text-[9px] font-bold text-muted-foreground uppercase tracking-widest leading-tight mt-0.5">{metric.label}</div>
                 </div>
               ))}
             </div>

@@ -9,13 +9,13 @@ export function ExperienceSection({ dict: t }: { dict: Dictionary }) {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="experience" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
-      <div className="max-w-6xl mx-auto">
+    <section id="experience" ref={ref} className="py-12 lg:py-16 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
+      <div className="max-w-5xl mx-auto">
         <m.header
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="mb-8 lg:mb-12"
+          className="mb-6 lg:mb-8"
         >
           <span className="text-primary font-mono text-xs lg:text-sm tracking-[0.2em] font-bold uppercase mb-4 block">
             {t.experience.sectionLabel}
@@ -25,35 +25,39 @@ export function ExperienceSection({ dict: t }: { dict: Dictionary }) {
           </h2>
         </m.header>
 
-        <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-12">
+        <div className="grid lg:grid-cols-[1fr_320px] gap-6 lg:gap-10">
           {/* Work Experience Timeline */}
-          <div className="space-y-8 lg:space-y-12 relative">
+          <div className="space-y-6 lg:space-y-8 relative">
             <div className="absolute left-[7.5px] top-2 bottom-2 w-px bg-border hidden md:block" />
             
             {t.experience.items.map((exp, index) => (
-              <article
+              <m.article
                 key={index}
+                initial={{ opacity: 0, y: 22, filter: 'blur(6px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
                 className="relative pl-0 md:pl-10 group"
               >
                 <div className="absolute left-0 top-2.5 w-4 h-4 rounded-full border-2 border-primary bg-background hidden md:block transition-transform group-hover:scale-125" aria-hidden="true" />
                 
-                <header className="flex flex-col mb-3 lg:mb-4">
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
+                <header className="flex flex-col mb-2 lg:mb-3">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest mb-0.5">
                     {exp.period}
                   </span>
-                  <h3 className="text-xl lg:text-2xl font-bold tracking-tight">{exp.title}</h3>
-                  <div className="text-muted-foreground font-semibold text-base lg:text-lg">{exp.company}</div>
+                  <h3 className="text-lg lg:text-xl font-bold tracking-tight">{exp.title}</h3>
+                  <div className="text-muted-foreground font-semibold text-sm lg:text-base">{exp.company}</div>
                 </header>
-                
-                <ul className="space-y-2 lg:space-y-3" aria-label={`Responsabilidades em ${exp.company}`}>
+
+                <ul className="space-y-1.5 lg:space-y-2" aria-label={`Responsabilidades em ${exp.company}`}>
                   {exp.bullets.map((bullet: string, i: number) => (
-                    <li key={i} className="flex items-start gap-3 text-sm lg:text-[15px] text-muted-foreground leading-relaxed">
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground leading-relaxed">
                       <CheckCircle2 className="w-4 h-4 text-primary mt-1 shrink-0" aria-hidden="true" />
                       {bullet}
                     </li>
                   ))}
                 </ul>
-              </article>
+              </m.article>
             ))}
           </div>
 

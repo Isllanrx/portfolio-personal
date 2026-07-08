@@ -11,19 +11,19 @@ interface TechCategory {
 const techStack: TechCategory[] = [
   {
     key: 'languages',
-    items: ['Python', 'JavaScript', 'SQL', 'Java'],
+    items: ['Python', 'TypeScript', 'SQL'],
   },
   {
     key: 'frameworks',
-    items: ['FastAPI', 'Flask', 'Django', 'Node.js'],
+    items: ['FastAPI', 'Node.js', 'React'],
   },
   {
     key: 'databases',
-    items: ['MS SQL Server', 'PostgreSQL', 'MySQL'],
+    items: ['PostgreSQL', 'MS SQL Server', 'MongoDB'],
   },
   {
     key: 'devops',
-    items: ['Docker', 'Azure DevOps', 'Git'],
+    items: ['Docker', 'GitHub Actions', 'Azure DevOps'],
   },
   {
     key: 'concepts',
@@ -59,7 +59,7 @@ export function TechStackSection({ dict: t }: { dict: Dictionary }) {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="space-y-4 lg:space-y-6"
+              className={`space-y-4 lg:space-y-6 ${category.key === 'concepts' ? 'hidden md:block' : ''}`}
             >
               <h3 className="text-[10px] lg:text-xs uppercase tracking-widest text-muted-foreground font-bold">
                 {t.techStack.categories[category.key]}

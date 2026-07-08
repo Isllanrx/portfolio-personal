@@ -44,21 +44,10 @@ function CertificationCard({ cert, index, isInView, t }: { cert: Cert; index: nu
       />
       
       <div className="relative z-10 flex flex-col h-full">
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start mb-4">
           <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
             <Award className="w-5 h-5" />
           </div>
-          {cert.link && (
-            <a 
-              href={cert.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-secondary text-muted-foreground hover:text-primary transition-colors"
-              title="Ver Certificado"
-            >
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          )}
         </div>
 
         <h3 className="font-bold text-lg mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
@@ -77,6 +66,18 @@ function CertificationCard({ cert, index, isInView, t }: { cert: Cert; index: nu
               {cert.hours} {t.certifications.hoursLabel}
             </span>
           </div>
+
+          {cert.link && (
+            <a
+              href={cert.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto flex w-fit items-center justify-center gap-1.5 h-8 px-3 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-all active:scale-95 shadow-sm shadow-primary/20"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              {t.certifications.viewCertificate}
+            </a>
+          )}
         </div>
       </div>
     </m.div>

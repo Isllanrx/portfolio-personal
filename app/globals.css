@@ -81,8 +81,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -139,10 +139,29 @@
 
   body {
     @apply bg-background text-foreground transition-colors duration-500;
+  }
+
+  /* Living background — pulsing primary glows behind content (paints above bg color, below content) */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
     background-image:
-      radial-gradient(ellipse 75% 60% at 0% 0%, color-mix(in oklch, var(--primary), transparent 86%), transparent),
-      radial-gradient(ellipse 55% 45% at 100% 100%, color-mix(in oklch, var(--primary), transparent 91%), transparent),
-      radial-gradient(ellipse 45% 35% at 75% 5%, color-mix(in oklch, var(--primary), transparent 95%), transparent);
+      radial-gradient(ellipse 75% 60% at 0% 0%, color-mix(in oklch, var(--primary), transparent 85%), transparent),
+      radial-gradient(ellipse 55% 45% at 100% 100%, color-mix(in oklch, var(--primary), transparent 90%), transparent),
+      radial-gradient(ellipse 45% 35% at 75% 5%, color-mix(in oklch, var(--primary), transparent 94%), transparent);
+    animation: bg-pulse 9s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  @keyframes bg-pulse {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; opacity: 0.75; }
   }
 
   /* Subtle grain texture — adds premium tactile quality */

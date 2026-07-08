@@ -1,15 +1,8 @@
 'use client'
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { ExternalLink, Github, ChevronRight } from 'lucide-react'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/shared/ui/dialog'
+import { useRef } from 'react'
+import { ExternalLink, Github } from 'lucide-react'
 import { Badge } from '@/shared/ui/badge'
 
 interface Project {
@@ -17,9 +10,16 @@ interface Project {
   github?: string
   demo?: string
   featured: boolean
+  private?: boolean
 }
 
 const projectsData: Project[] = [
+  {
+    id: 'sistema-veicular',
+    demo: 'https://sistema-veicular.isllan.dev',
+    featured: true,
+    private: true,
+  },
   {
     id: 'paulo-veiculos',
     demo: 'https://www.pauloveiculo.com.br/',
@@ -45,114 +45,108 @@ const projectsData: Project[] = [
   {
     id: 'blog-esporte-uvv',
     demo: 'https://blog-esporte-uvv.isllan.dev/',
+    github: 'https://github.com/Isllanrx/sports-blog',
+    featured: true,
+  },
+  {
+    id: 'dashboard-viagens',
+    featured: true,
+    private: true,
+  },
+  {
+    id: 'estoquei',
+    github: 'https://github.com/Isllanrx/Estoquei',
+    featured: true,
+  },
+  {
+    id: 'formacao-crisma',
+    demo: 'https://meucrisma.isllan.dev/',
+    github: 'https://github.com/Isllanrx/Projeto-Crisma',
     featured: true,
   },
 ]
 
-function ProjectCard({ project, onClick, t }: { project: Project; onClick: () => void; t: Dictionary }) {
+// Agrupa por segmento: privado (0) → com site (1) → só projeto/github (2). Ordem estável mantém a ordem original dentro do grupo.
+const segmentRank = (p: Project) => (p.private ? 0 : p.demo ? 1 : 2)
+const orderedProjects = [...projectsData].sort((a, b) => segmentRank(a) - segmentRank(b))
+
+function ProjectCard({ project, t, hiddenOnMobile }: { project: Project; t: Dictionary; hiddenOnMobile?: boolean }) {
   const projectTranslation = t.projects.items[project.id as keyof typeof t.projects.items]
-  
+
   return (
     <m.article
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       whileHover={{ y: -4 }}
-      className="group cursor-pointer p-8 rounded-3xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all h-full flex flex-col shadow-sm hover:shadow-xl hover:shadow-primary/5 relative overflow-hidden"
-      onClick={onClick}
+      className={`group p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all h-full flex-col shadow-sm hover:shadow-xl hover:shadow-primary/5 relative overflow-hidden ${hiddenOnMobile ? 'hidden md:flex' : 'flex'}`}
     >
       <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />
-      
-      <header className="flex items-start justify-between mb-4 relative z-10">
-        <h3 className="text-2xl font-bold group-hover:text-primary transition-colors bg-clip-text">
+
+      {project.private && (
+        <span className="absolute top-3 right-3 z-20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground bg-secondary/60 border border-border rounded-full px-2.5 py-1">
+          {t.projects.privateLabel}
+        </span>
+      )}
+
+      <header className="mb-3 relative z-10">
+        <h3 className="text-xl font-bold group-hover:text-primary transition-colors bg-clip-text">
           {projectTranslation.title}
         </h3>
-        <div className="p-2 rounded-full bg-secondary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-          <ChevronRight className="w-5 h-5" aria-hidden="true" />
-        </div>
       </header>
-      
-      <p className="text-muted-foreground text-lg mb-6 flex-grow leading-relaxed relative z-10">
+
+      <p className="text-muted-foreground text-sm mb-4 leading-relaxed relative z-10">
         {projectTranslation.shortDescription}
       </p>
 
-      <div className="flex flex-wrap gap-2 mb-6 relative z-10" aria-label="Tecnologias utilizadas">
-        {projectTranslation.techStack.split(', ').map((tech: string) => (
-          <Badge key={tech} variant="secondary" className="px-3 py-1 font-medium bg-secondary/50 border-none">
-            {tech}
-          </Badge>
-        ))}
-      </div>
-
-      {!project.demo && !project.github && (
-        <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 px-4 py-1 relative z-10">
-          {t.projects.comingSoon}
-        </Badge>
-      )}
-    </m.article>
-  )
-}
-
-function ProjectModal({ project, open, onClose, t }: { project: Project | null; open: boolean; onClose: () => void; t: Dictionary }) {
-  if (!project) return null
-
-  const projectTranslation = t.projects.items[project.id as keyof typeof t.projects.items]
-
-  return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-xl p-8 rounded-3xl overflow-hidden">
-        <DialogHeader>
-          <DialogTitle className="text-3xl font-bold mb-2 break-words">{projectTranslation.title}</DialogTitle>
-          <DialogDescription className="text-lg leading-relaxed break-words">{projectTranslation.shortDescription}</DialogDescription>
-        </DialogHeader>
-
-        <div className="space-y-6 mt-6">
-          <div className="flex flex-wrap gap-2">
-            {projectTranslation.techStack.split(', ').map((tech: string) => (
-              <Badge key={tech} variant="secondary" className="px-4 py-1 text-sm font-medium">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-
-          <nav className="flex gap-4 pt-6" aria-label="Links do projeto">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-border hover:bg-secondary transition-all font-semibold active:scale-95"
-              >
-                <Github className="w-5 h-5" />
-                {t.projects.sourceCode}
-              </a>
-            )}
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all font-semibold shadow-lg shadow-primary/20 active:scale-95"
-              >
-                <ExternalLink className="w-5 h-5" />
-                {t.projects.viewDemo}
-              </a>
-            )}
-          </nav>
+      <div className="mt-auto relative z-10">
+        <div
+          className="flex flex-nowrap gap-1 mb-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="Tecnologias utilizadas"
+        >
+          {projectTranslation.techStack.split(', ').map((tech: string) => (
+            <Badge key={tech} variant="secondary" className="shrink-0 whitespace-nowrap px-1.5 py-0.5 text-[10px] font-medium bg-secondary/50 border-none">
+              {tech}
+            </Badge>
+          ))}
         </div>
-      </DialogContent>
-    </Dialog>
+
+        <div className="flex gap-2 min-h-8" aria-label="Ações rápidas do projeto">
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-4 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-all active:scale-95 shadow-sm shadow-primary/20"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              {t.projects.viewDemo}
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto inline-flex items-center justify-center gap-1.5 h-8 px-4 rounded-lg border border-border text-xs font-semibold hover:bg-secondary transition-all active:scale-95"
+            >
+              <Github className="w-3.5 h-3.5" />
+              {t.projects.sourceCode}
+            </a>
+          )}
+        </div>
+      </div>
+    </m.article>
   )
 }
 
 export function ProjectsSection({ dict: t }: { dict: Dictionary }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   return (
     <section id="projects" ref={ref} className="py-16 lg:py-24 px-6 md:px-12 lg:px-24 border-t border-border scroll-mt-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <m.header
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -170,23 +164,16 @@ export function ProjectsSection({ dict: t }: { dict: Dictionary }) {
           </p>
         </m.header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-          {projectsData.map((project) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {orderedProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
-              onClick={() => setSelectedProject(project)}
               t={t}
+              hiddenOnMobile={index >= 4}
             />
           ))}
         </div>
-
-        <ProjectModal
-          project={selectedProject}
-          open={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
-          t={t}
-        />
       </div>
     </section>
   )

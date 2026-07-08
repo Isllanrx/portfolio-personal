@@ -4,7 +4,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, Sun, Moon, Globe } from 'lucide-react'
+import { X, Sun, Moon, Globe } from 'lucide-react'
 import { useTheme } from '@/shared/theme-provider'
 import { type Locale } from '@/lib/i18n/translations'
 import { useRouter, usePathname } from 'next/navigation'
@@ -45,16 +45,20 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    handleScroll() // sincroniza no mount — após troca de idioma o header remonta e precisa recalcular
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [isMobileMenuOpen])
+
   const navItems = [
     { label: t.nav.projects, href: isHome ? '#projects' : `/${locale}#projects` },
-    { label: t.nav.experience, href: isHome ? '#experience' : `/${locale}#experience` },
-    { label: t.nav.about, href: isHome ? '#about' : `/${locale}#about` },
-    { label: t.nav.contact, href: isHome ? '#contact' : `/${locale}#contact` },
     { label: t.nav.certifications, href: `/${locale}/certifications` },
+    { label: t.nav.contact, href: isHome ? '#contact' : `/${locale}#contact` },
   ]
 
   return (
@@ -83,13 +87,13 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          <ul className="flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-2">
+          <ul className="flex items-center gap-0.5">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                  className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wide text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -97,7 +101,7 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
             ))}
           </ul>
 
-          <div className="flex items-center gap-2 ml-4 border-l border-border pl-4">
+          <div className="flex items-center gap-1 ml-1 border-l border-border pl-2">
             <button
               className="p-2 rounded-lg hover:bg-secondary transition-colors"
               onClick={toggleTheme}
@@ -143,43 +147,88 @@ export function Header({ dict: t, locale }: { dict: Dictionary, locale: string }
           </button>
 
           <button
-            className="p-2 -mr-2"
+            className="p-2 -mr-2 flex items-center justify-center"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
+            <span className="relative block w-5 h-4" aria-hidden="true">
+              <m.span
+                className="absolute left-0 top-0 h-0.5 w-5 rounded-full bg-foreground"
+                animate={isMobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              />
+              <m.span
+                className="absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-foreground"
+                animate={isMobileMenuOpen ? { opacity: 0, x: -8 } : { opacity: 1, x: 0 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+              />
+              <m.span
+                className="absolute left-0 bottom-0 h-0.5 w-5 rounded-full bg-foreground"
+                animate={isMobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              />
+            </span>
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — drawer lateral direito */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <m.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-background border-b border-border overflow-hidden"
-          >
-            <ul className="px-6 py-4 space-y-4">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="block text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
+          <>
+            <m.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed inset-0 z-40 bg-background/60 backdrop-blur-sm"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+
+            <m.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+              className="md:hidden fixed top-0 right-0 z-50 h-[100dvh] w-72 max-w-[80vw] bg-background border-l border-border shadow-2xl flex flex-col"
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="flex items-center justify-between px-6 h-[72px] border-b border-border">
+                <span className="font-bold text-lg tracking-tighter">
+                  isllan<span className="text-muted-foreground">.dev</span>
+                </span>
+                <button
+                  className="p-2 -mr-2 rounded-lg hover:bg-secondary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label={t.nav.closeMenu}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <ul className="flex flex-col gap-1 px-4 py-6">
+                {navItems.map((item, i) => (
+                  <m.li
+                    key={item.href}
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 + i * 0.07, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </m.div>
+                    <Link
+                      href={item.href}
+                      className="block px-4 py-3 rounded-lg text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </m.li>
+                ))}
+              </ul>
+            </m.div>
+          </>
         )}
       </AnimatePresence>
     </header>
