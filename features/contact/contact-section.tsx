@@ -2,7 +2,8 @@
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Mail, Github, Linkedin, Send, CheckCircle2 } from 'lucide-react'
+import { Mail, Send, CheckCircle2 } from 'lucide-react'
+import { Github, Linkedin } from '@/shared/ui/brand-icons'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {

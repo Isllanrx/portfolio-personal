@@ -1,7 +1,8 @@
 'use client'
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m } from 'framer-motion'
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
+import { ArrowDown, Mail } from 'lucide-react'
+import { Github, Linkedin } from '@/shared/ui/brand-icons'
 import Image from 'next/image'
 
 export function HeroSection({ dict: t }: { dict: Dictionary }) {

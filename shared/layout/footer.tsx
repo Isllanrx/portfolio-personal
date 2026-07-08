@@ -1,6 +1,7 @@
 'use client'
 import type { Dictionary } from '@/i18n/get-dictionary'
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Mail } from 'lucide-react'
+import { Github, Linkedin } from '@/shared/ui/brand-icons'
 
 
 export function Footer({ dict: t }: { dict: Dictionary }) {

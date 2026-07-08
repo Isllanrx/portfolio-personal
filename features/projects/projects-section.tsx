@@ -2,7 +2,8 @@
 import type { Dictionary } from '@/i18n/get-dictionary'
 import { m, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { ExternalLink, Github } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
+import { Github } from '@/shared/ui/brand-icons'
 import { Badge } from '@/shared/ui/badge'
 
 interface Project {
